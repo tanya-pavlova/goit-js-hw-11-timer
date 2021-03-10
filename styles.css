@@ -1,0 +1,30 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.timer {
+    display: flex;
+    justify-content: space-around;
+}
+
+.field {
+    display: flex;
+    
+    flex-direction: column;
+    text-align: center;
+}
+
+
+.value {   
+    letter-spacing: 0.05em;
+    font-size: 75px;
+    padding: 5px 0;
+  }
+
+  .label {
+    letter-spacing: 0.1em;
+    font-size: 20px;
+  }
+
