@@ -4,6 +4,13 @@
   box-sizing: border-box;
 }
 
+.title {
+  letter-spacing: 0.1em;
+    font-size: 50px;
+    display: flex;
+    justify-content: center;
+}
+
 .timer {
     display: flex;
     justify-content: space-around;
