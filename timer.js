@@ -1,27 +1,27 @@
-const daysRef = document.querySelector('span[data-value="days"]');
-const hoursRef = document.querySelector('span[data-value="hours"]');
-const minsRef = document.querySelector('span[data-value="mins"]');
-const secsRef = document.querySelector('span[data-value="secs"]');
 
 class CountdownTimer {
-  constructor({ targetDate } = {}) {
+  constructor({ selector, targetDate }) {
+    this.selector = selector;
     this.targetDate = targetDate;
     this.start();
+    this.refs = {
+       daysRef : document.querySelector('span[data-value="days"]'),
+       hoursRef : document.querySelector('span[data-value="hours"]'),
+       minsRef : document.querySelector('span[data-value="mins"]'),
+       secsRef : document.querySelector('span[data-value="secs"]'),
+    }    
   }
+
 
   start() {
-    this.getTime();
     setInterval(() => {
-      this.getTime();
+      const currentTime = Date.now();
+      const deltaTime = this.targetDate - currentTime;
+      this.getTimeComponents(deltaTime);
     }, 1000);
-  }
+  };
 
-  getTime() {
-    const currentTime = Date.now();
-    const deltaTime = this.targetDate - currentTime;
-    this.getTimeComponents(deltaTime);
-  }
-
+ 
   getTimeComponents(time) {
     const days = Math.floor(time / (1000 * 60 * 60 * 24));
     const hours = this.pad(
@@ -30,21 +30,16 @@ class CountdownTimer {
     const mins = this.pad(Math.floor((time % (1000 * 60 * 60)) / (1000 * 60)));
     const secs = this.pad(Math.floor((time % (1000 * 60)) / 1000));
 
-    this.updateTime(days, hours, mins, secs);
+    this.refs.daysRef.textContent = `${days}`;
+    this.refs.hoursRef.textContent = `${hours}`;
+    this.refs.minsRef.textContent = `${mins}`;
+    this.refs.secsRef.textContent = `${secs}`;
   }
 
   pad(value) {
     return String(value).padStart(2, '0');
   }
-
-  updateTime(days, hours, mins, secs) {
-    daysRef.textContent = `${days}`;
-    hoursRef.textContent = `${hours}`;
-    minsRef.textContent = `${mins}`;
-    secsRef.textContent = `${secs}`;
-  }
-}
-
+};
 
 const timer = new CountdownTimer({
   selector: '#timer-1',
